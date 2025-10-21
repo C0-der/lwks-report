@@ -1,0 +1,421 @@
+header h1{
+    color: white;
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+    line-height: 60px;
+    font-family: 'Arial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+/* Mobile Styles (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+        margin: auto;
+    }
+    header h1 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    nav a {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+    .home, .about, .contacts {
+        padding: 10px;
+        margin: 10px;
+    }
+    .contact-form button {
+        width: 100%;
+        align-self: stretch;
+    }
+    h2 {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+    p {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+    footer {
+        font-size: 10px;
+    }
+
+    /* Dashboard and Form Responsiveness */
+    .bg-white.p-4.rounded.shadow.w-75 {
+        width: 95% !important;
+        padding: 15px !important;
+    }
+    .btn-lg {
+        font-size: 14px !important;
+        padding: 8px 16px !important;
+    }
+    .table {
+        font-size: 12px;
+    }
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .table th, .table td {
+        white-space: nowrap;
+        padding: 4px;
+    }
+    .form-control {
+        font-size: 14px;
+        padding: 8px;
+    }
+    .form-select {
+        font-size: 14px;
+    }
+    .card-body {
+        padding: 10px;
+    }
+    .card-title {
+        font-size: 16px;
+    }
+    .list-group-item {
+        padding: 8px;
+        font-size: 12px;
+    }
+    .d-grid.gap-3 {
+        gap: 10px !important;
+    }
+    .d-flex.gap-2 {
+        flex-direction: column;
+        gap: 10px !important;
+    }
+    .d-flex.justify-content-between.align-items-start {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Tablet Styles (min-width: 769px and max-width: 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    body {
+        font-size: 16px;
+    }
+    .bg-white.p-4.rounded.shadow.w-75 {
+        width: 90% !important;
+        padding: 20px !important;
+    }
+    .btn-lg {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+    .table {
+        font-size: 14px;
+    }
+    .table th, .table td {
+        padding: 6px;
+    }
+    .form-control {
+        font-size: 16px;
+        padding: 10px;
+    }
+    .form-select {
+        font-size: 16px;
+    }
+    .card-body {
+        padding: 15px;
+    }
+    .card-title {
+        font-size: 18px;
+    }
+    .list-group-item {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Desktop Styles (min-width: 1025px) - Defaults remain unchanged */
+.home {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 80px); /* Adjust based on header height */
+}
+
+.home .container {
+    max-width: 1200px;
+}
+
+.home h1 {
+    color: #333;
+    font-weight: bold;
+}
+
+.home .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+}
+
+.home .img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.home .list-group-item {
+    background-color: transparent;
+    border: none;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+}
+
+.home .text-muted {
+    color: #6c757d !important;
+}
+.about {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 80px);
+}
+
+.about .container {
+    max-width: 1200px;
+}
+
+.about h1 {
+    color: #333;
+    font-weight: bold;
+}
+
+.about .lead {
+    font-size: 1.25rem;
+    line-height: 1.6;
+}
+
+.about p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1rem;
+}
+.contacts {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 80px);
+}
+
+.contacts .container {
+    max-width: 1200px;
+}
+
+.contacts h1 {
+    color: #333;
+    font-weight: bold;
+}
+
+.contacts p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form button {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.contact-form button:active {
+    transform: translateY(0);
+}
+.footer{
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.footer p{
+    margin: 0;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.footer:hover{
+    background-color: white;
+    color: black;
+}
+
+/* Register Form Styles */
+.form{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.form input{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.form button{
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.form button:hover{
+    background-color: #218838;
+}
+
+.d-flex.justify-content-center.align-items-center.bg-primary.vh-100 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding-top: 80px;
+    min-height: calc(100vh - 80px);
+}
+
+.bg-black.p-3.rounded.w-25 {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: none;
+    background: #000;
+}
+
+.bg-black.p-3.rounded.w-25 h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 5px !important;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: none;
+    border-radius: 5px;
+    transition: transform 0.2s ease;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #218838 0%, #17a2b8 100%);
+}
+
+.text-danger {
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+/* Register form container max-width to fit within page */
+.bg-black.text-white.p-3.rounded {
+    max-width: 500px;
+}
+
+/* Custom button styles for dark background */
+.btn-white {
+    background-color: white;
+    color: black;
+    border: 1px solid white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-white:hover {
+    background-color: #f8f9fa;
+    color: black;
+    border-color: #f8f9fa;
+}
+
+.btn-blue {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-blue:hover {
+    background-color: #0056b3;
+    color: white;
+    border-color: #0056b3;
+}
+
+.btn-black {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-black:hover {
+    background-color: #333;
+    color: white;
+    border-color: #333;
+}

@@ -1,0 +1,60 @@
+:root{
+    --nav-bg: #333;
+    --nav-text: #fff;
+}
+
+/* Outer navbar container (matches .navbar in JSX) */
+.navbar{
+    background-color: var(--nav-bg);
+    color: var(--nav-text);
+    display: flex;
+    align-items: center;
+    /* flush to the left of the page */
+    justify-content: flex-start;
+    padding: 10px 12px;
+    gap: 24px;
+}
+
+.navbar .logo{
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-left: 8px; /* small left offset from viewport edge */
+    color: var(--nav-text);
+}
+
+/* The <nav> element inside the navbar */
+nav.nav{
+    background: transparent;
+}
+
+.nav-links{
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-item a{
+    color: var(--nav-text);
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.nav-item a:hover{
+    background-color: #ddd;
+    color: black;
+}
+
+/* Utility: make navbar fixed to top-left (optional) */
+.navbar.fixed-left{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 100%;
+    z-index: 1000;
+}
