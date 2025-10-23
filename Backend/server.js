@@ -9,10 +9,10 @@ app.use(express.json());// to parse json data
 // Create connection to database
 
 const db = mysql2.createConnection({
-    host: 'localhost',
-    user:  'root',
-    password: 'N12v11e6j1@12',
-    database: 'testdb'
+    host: 'gateway01.us-east-1.prod.aws.tidbcloud.com',
+    user:  '3bvEKxhmHL6Qnm8.root',
+    password: '3gu3WxEKlXGCAPd2',
+    database: 'test'
 });
 
 // Connect to database
