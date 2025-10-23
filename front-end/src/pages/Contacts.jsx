@@ -19,7 +19,7 @@ function Contact() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/send-message', {
+            const response = await fetch('https://lwks-reporting.onrender.com', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

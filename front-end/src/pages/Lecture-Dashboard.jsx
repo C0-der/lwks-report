@@ -34,7 +34,7 @@ function LectureDashboard() {
 
     const fetchLecturerReportsFeedback = () => {
         // First fetch reports for this lecturer
-        fetch(`http://localhost:3001/get-lecture-reports?lecturer_username=${username}`)
+        fetch(`https://lwks-reporting.onrender.com/get-lecture-reports?lecturer_username=${username}`)
             .then(res => res.json())
             .then(reports => {
                 if (!Array.isArray(reports) || reports.length === 0) {
@@ -43,7 +43,7 @@ function LectureDashboard() {
                 }
                 // For each report, fetch feedback and combine
                 const promises = reports.map(report =>
-                    fetch(`http://localhost:3001/get-feedback?report_id=${report.id}`)
+                    fetch(`https://lwks-reporting.onrender.com/get-feedback?report_id=${report.id}`)
                         .then(res => res.json())
                         .then(feedbacks => {
                             // attach report context to each feedback item
@@ -67,7 +67,7 @@ function LectureDashboard() {
     };
 
     useEffect(() => {
-        fetch('http://localhost:3001/get-courses')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setCourses(data))
             .catch(err => console.error('Error fetching courses:', err));
@@ -79,7 +79,7 @@ function LectureDashboard() {
 
     const fetchLectureProgress = useCallback(() => {
         // First fetch lectures for this lecturer
-        fetch(`http://localhost:3001/get-lecturer-lectures?lecturer_username=${username}`)
+        fetch(`https://lwks-reporting.onrender.com/get-lecturer-lectures?lecturer_username=${username}`)
             .then(res => res.json())
             .then(lectures => {
                 if (!Array.isArray(lectures) || lectures.length === 0) {
@@ -88,7 +88,7 @@ function LectureDashboard() {
                 }
                 // For each lecture, fetch reports and calculate progress
                 const promises = lectures.map(lecture =>
-                    fetch(`http://localhost:3001/get-lecture-reports?lecturer_username=${username}`)
+                    fetch(`https://lwks-reporting.onrender.com/get-lecture-reports?lecturer_username=${username}`)
                         .then(res => res.json())
                         .then(reports => {
                             // Filter reports for this specific lecture
@@ -124,7 +124,7 @@ function LectureDashboard() {
     }, [username]);
 
     const handleRateStudents = () => {
-        fetch('http://localhost:3001/get-students')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => {
                 setStudents(data);
@@ -141,7 +141,7 @@ function LectureDashboard() {
             alert('Please select a student.');
             return;
         }
-        fetch('http://localhost:3001/submit-rating', {
+        fetch('https://lwks-reporting.onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -172,7 +172,7 @@ function LectureDashboard() {
     };
 
     const handleViewRatings = () => {
-        fetch(`http://localhost:3001/get-lecturer-given-ratings?lecturer_username=${username}`)
+        fetch(`https://lwks-reporting.onrender.com/get-lecturer-given-ratings?lecturer_username=${username}`)
             .then(res => res.json())
             .then(data => {
                 setRatings(data);
@@ -185,7 +185,7 @@ function LectureDashboard() {
     };
 
     const fetchRatingsForStudent = (studentUsername) => {
-        fetch(`http://localhost:3001/get-lecturer-given-ratings?lecturer_username=${username}&student_username=${studentUsername}`)
+        fetch(`https://lwks-reporting.onrender.com/get-lecturer-given-ratings?lecturer_username=${username}&student_username=${studentUsername}`)
             .then(res => res.json())
             .then(data => {
                 setRatings(data);
@@ -199,7 +199,7 @@ function LectureDashboard() {
 
     const fetchRatingsFromPrincipal = () => {
         // Fetch ratings where principals rated this lecturer
-        fetch(`http://localhost:3001/get-lecturer-ratings?lecturer_username=${username}`)
+        fetch(`https://lwks-reporting.onrender.com/get-lecturer-ratings?lecturer_username=${username}`)
             .then(res => res.json())
             .then(data => {
                 setPrincipalRatings(data);
@@ -215,7 +215,7 @@ function LectureDashboard() {
 
 
     const handleManageClasses = () => {
-        fetch(`http://localhost:3001/get-lecturer-lectures?lecturer_username=${username}`)
+        fetch(`https://lwks-reporting.onrender.com/get-lecturer-lectures?lecturer_username=${username}`)
             .then(res => res.json())
             .then(data => {
                 setLectures(data);
@@ -232,7 +232,7 @@ function LectureDashboard() {
             alert('Please fill title and select course.');
             return;
         }
-        fetch('http://localhost:3001/add-lecture', {
+        fetch('https://lwks-reporting.onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -263,7 +263,7 @@ function LectureDashboard() {
 
     const handleDeleteLecture = (id) => {
         if (!confirm('Are you sure you want to delete this lecture?')) return;
-        fetch('http://localhost:3001/delete-lecture', {
+        fetch('https://lwks-reporting.onrender.com', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id })
@@ -284,7 +284,7 @@ function LectureDashboard() {
     };
 
     const handleStudentMonitoring = () => {
-        fetch(`http://localhost:3001/get-lecturer-students?lecturer_username=${username}`)
+        fetch(`https://lwks-reporting.onrender.com/get-lecturer-students?lecturer_username=${username}`)
             .then(res => res.json())
             .then(data => {
                 setStudentsMonitoring(data);

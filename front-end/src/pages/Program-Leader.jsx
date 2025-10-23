@@ -40,7 +40,7 @@ function ProgramLeader() {
     useEffect(() => {
         if (username) {
             // Fetch courses count
-            fetch('http://localhost:3001/get-courses')
+            fetch('https://lwks-reporting.onrender.com')
                 .then(res => res.json())
                 .then(data => {
                     setOverviewData(prev => ({ ...prev, coursesCount: data.length }));
@@ -48,7 +48,7 @@ function ProgramLeader() {
                 .catch(err => console.error('Error fetching courses:', err));
 
             // Fetch reports count
-            fetch('http://localhost:3001/get-reviewed-reports')
+            fetch('https://lwks-reporting.onrender.com')
                 .then(res => res.json())
                 .then(data => {
                     setOverviewData(prev => ({ ...prev, reportsCount: data.length }));
@@ -61,7 +61,7 @@ function ProgramLeader() {
                 .catch(err => console.error('Error fetching reports:', err));
 
             // Fetch ratings count
-            fetch('http://localhost:3001/get-all-ratings')
+            fetch('https://lwks-reporting.onrender.com')
                 .then(res => res.json())
                 .then(data => {
                     setOverviewData(prev => ({ ...prev, ratingsCount: data.length }));
@@ -74,7 +74,7 @@ function ProgramLeader() {
                 .catch(err => console.error('Error fetching ratings:', err));
 
             // Fetch lectures count
-            fetch('http://localhost:3001/get-all-lectures')
+            fetch('https://lwks-reporting.onrender.com')
                 .then(res => res.json())
                 .then(data => {
                     setOverviewData(prev => ({ ...prev, lecturesCount: data.length }));
@@ -90,7 +90,7 @@ function ProgramLeader() {
 
     const handleRatings = () => {
         setActiveSection('ratings');
-        fetch('http://localhost:3001/get-all-ratings')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setAllRatings(data))
             .catch(err => {
@@ -101,7 +101,7 @@ function ProgramLeader() {
 
     const handleManageLectures = () => {
         setActiveSection('lectures');
-        fetch('http://localhost:3001/get-all-lectures')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setLectures(data))
             .catch(err => {
@@ -112,7 +112,7 @@ function ProgramLeader() {
 
     const handleViewCourses = () => {
         setActiveSection('courses');
-        fetch('http://localhost:3001/get-courses')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setCourses(data))
             .catch(err => {
@@ -123,7 +123,7 @@ function ProgramLeader() {
 
     const handleDeleteLecture = (id) => {
         if (window.confirm('Are you sure you want to delete this lecture?')) {
-            fetch('http://localhost:3001/delete-lecture', {
+            fetch('https://lwks-reporting.onrender.com', {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id })
@@ -156,7 +156,7 @@ function ProgramLeader() {
             alert('Title is required');
             return;
         }
-        fetch('http://localhost:3001/update-lecture', {
+        fetch('https://lwks-reporting.onrender.com', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: selectedLecture, title: editTitle.trim(), description: editDescription.trim() })
@@ -203,7 +203,7 @@ function ProgramLeader() {
 
     const handleViewReports = () => {
         setActiveSection('reports');
-        fetch('http://localhost:3001/get-reviewed-reports')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setReports(data))
             .catch(err => {
@@ -213,7 +213,7 @@ function ProgramLeader() {
     };
 
     const fetchReviewReports = () => {
-        fetch('http://localhost:3001/get-unreviewed-reports')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setReviewReports(data))
             .catch(err => {
@@ -228,7 +228,7 @@ function ProgramLeader() {
             alert('Feedback is required');
             return;
         }
-        fetch('http://localhost:3001/submit-program-leader-feedback', {
+        fetch('https://lwks-reporting.onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -257,7 +257,7 @@ function ProgramLeader() {
     const handleMonitor = () => {
         setActiveSection('monitor');
         setMonitorMode('students');
-        fetch('http://localhost:3001/get-students')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setStudents(data))
             .catch(err => {
@@ -268,7 +268,7 @@ function ProgramLeader() {
 
     const handleMonitorStudents = () => {
         setMonitorMode('students');
-        fetch('http://localhost:3001/get-students')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setStudents(data))
             .catch(err => {
@@ -279,7 +279,7 @@ function ProgramLeader() {
 
     const handleMonitorLecturers = () => {
         setMonitorMode('lecturers');
-        fetch('http://localhost:3001/get-lecturers')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setLecturers(data))
             .catch(err => {
@@ -290,7 +290,7 @@ function ProgramLeader() {
 
     const handleMonitorPrincipals = () => {
         setMonitorMode('principals');
-        fetch('http://localhost:3001/get-principals')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setPrincipals(data))
             .catch(err => {
@@ -309,8 +309,8 @@ function ProgramLeader() {
         const lecturerEndpoint = '/get-program-leader-lecturer-classes';
 
         Promise.all([
-            fetch(`http://localhost:3001${studentEndpoint}?username=${username}`).then(res => res.json()),
-            fetch(`http://localhost:3001${lecturerEndpoint}?username=${username}`).then(res => res.json())
+            fetch(`https://lwks-reporting.onrender.com${studentEndpoint}?username=${username}`).then(res => res.json()),
+            fetch(`https://lwks-reporting.onrender.com${lecturerEndpoint}?username=${username}`).then(res => res.json())
         ])
             .then(([studentData, lecturerData]) => {
                 const combinedData = [

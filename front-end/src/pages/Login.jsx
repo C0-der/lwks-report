@@ -22,7 +22,7 @@ function Login() {
         const validationErrors = Validation(Values);
         setErrors(validationErrors);
         if (!Object.values(validationErrors).some(err => err !== "")) {
-            fetch('http://localhost:3001/login', {
+            fetch('https://lwks-reporting.onrender.com', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

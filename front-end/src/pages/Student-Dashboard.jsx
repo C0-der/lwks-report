@@ -22,24 +22,24 @@ function StudentDashboard() {
     const lastname = localStorage.getItem('lastname');
 
     useEffect(() => {
-        fetch('http://localhost:3001/get-courses')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setCourses(data))
             .catch(err => console.error('Error fetching courses:', err));
 
         // Fetch chart data
         if (username) {
-            fetch(`http://localhost:3001/get-student-attendance?student_username=${username}`)
+            fetch(`https://lwks-reporting.onrender.com/get-student-attendance?student_username=${username}`)
                 .then(res => res.json())
                 .then(data => setAttendanceData(data))
                 .catch(err => console.error('Error fetching attendance data:', err));
 
-            fetch(`http://localhost:3001/get-student-ratings-distribution?student_username=${username}`)
+            fetch(`https://lwks-reporting.onrender.com/get-student-ratings-distribution?student_username=${username}`)
                 .then(res => res.json())
                 .then(data => setRatingsData(data))
                 .catch(err => console.error('Error fetching ratings data:', err));
 
-            fetch(`http://localhost:3001/get-student-progress?student_username=${username}`)
+            fetch(`https://lwks-reporting.onrender.com/get-student-progress?student_username=${username}`)
                 .then(res => res.json())
                 .then(data => setProgressData(data))
                 .catch(err => console.error('Error fetching progress data:', err));

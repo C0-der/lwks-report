@@ -40,7 +40,7 @@ function PrincipalLecture() {
 
     const deleteFeedback = (feedbackId) => {
         if (!confirm('Delete this feedback?')) return;
-        fetch('http://localhost:3001/delete-feedback', {
+        fetch('https://lwks-reporting.onrender.com', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: feedbackId })
@@ -63,7 +63,7 @@ function PrincipalLecture() {
 
     const fetchStudentRatings = () => {
         // Fetch ratings where ratee_role = 'student'
-        fetch('http://localhost:3001/get-all-ratings')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => {
                 if (!res.ok) {
                     throw new Error('Network response was not ok');
@@ -93,7 +93,7 @@ function PrincipalLecture() {
 
     const handleRateLecturers = () => {
         setViewMode('rate');
-        fetch('http://localhost:3001/get-lecturers')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setLecturers(data))
             .catch(err => {
@@ -107,7 +107,7 @@ function PrincipalLecture() {
             alert('Please select a lecturer.');
             return;
         }
-        fetch('http://localhost:3001/submit-rating', {
+        fetch('https://lwks-reporting.onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -143,7 +143,7 @@ function PrincipalLecture() {
     };
 
     const fetchMonitorCourses = () => {
-        fetch('http://localhost:3001/get-all-courses-with-lectures')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setMonitorCourses(data))
             .catch(err => {
@@ -153,7 +153,7 @@ function PrincipalLecture() {
     };
 
     const fetchMonitorLecturers = () => {
-        fetch('http://localhost:3001/get-lecturers')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setMonitorLecturers(data))
             .catch(err => {
@@ -168,7 +168,7 @@ function PrincipalLecture() {
     };
 
     const fetchStudentClasses = () => {
-        fetch('http://localhost:3001/get-all-student-classes',)
+        fetch('https://lwks-reporting.onrender.com',)
             .then(res => res.json())
             .then(data => setStudentClasses(data))
             .catch(err => {
@@ -178,7 +178,7 @@ function PrincipalLecture() {
     };
 
     const fetchLectures = () => {
-        fetch('http://localhost:3001/get-all-lectures-with-courses')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setLectures(data))
             .catch(err => {
@@ -194,7 +194,7 @@ function PrincipalLecture() {
     };
 
     const fetchCourses = () => {
-        fetch('http://localhost:3001/get-courses')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => setCourses(data))
             .catch(err => {
@@ -205,7 +205,7 @@ function PrincipalLecture() {
 
     const handleDeleteCourse = (courseId) => {
         if (!confirm('Are you sure you want to delete this course? This action cannot be undone.')) return;
-        fetch('http://localhost:3001/delete-course', {
+        fetch('https://lwks-reporting.onrender.com', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: courseId })
@@ -227,7 +227,7 @@ function PrincipalLecture() {
 
     const fetchReports = () => {
         // Optionally filter by lecturer if needed, for now get all reports
-        fetch('http://localhost:3001/get-lecture-reports')
+        fetch('https://lwks-reporting.onrender.com')
             .then(res => res.json())
             .then(data => {
                 setReports(data);
@@ -252,7 +252,7 @@ function PrincipalLecture() {
             from_role: 'principal',
             feedback_text: text
         };
-        fetch('http://localhost:3001/submit-feedback', {
+        fetch('https://lwks-reporting.onrender.com', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -276,7 +276,7 @@ function PrincipalLecture() {
     };
 
     const fetchFeedbackForReport = (reportId) => {
-        fetch(`http://localhost:3001/get-feedback?report_id=${reportId}`)
+        fetch(`https://lwks-reporting.onrender.com/get-feedback?report_id=${reportId}`)
             .then(res => res.json())
             .then(data => setReportFeedback(prev => ({ ...prev, [reportId]: data })))
             .catch(err => console.error('Error fetching feedback for report', reportId, err));
@@ -285,7 +285,7 @@ function PrincipalLecture() {
     useEffect(() => {
         if (username) {
             // Fetch reports filed by lecturers
-            fetch('http://localhost:3001/get-lecture-reports')
+            fetch('https://lwks-reporting.onrender.com')
                 .then(res => res.json())
                 .then(data => {
                     const reportsData = data.map(report => ({
@@ -297,7 +297,7 @@ function PrincipalLecture() {
                 .catch(err => console.error('Error fetching reports:', err));
 
             // Fetch feedbacks given by principal
-            fetch(`http://localhost:3001/get-feedback-by-user?username=${username}`)
+            fetch(`https://lwks-reporting.onrender.com/get-feedback-by-user?username=${username}`)
                 .then(res => res.json())
                 .then(data => {
                     const feedbacksData = data.map(feedback => ({
@@ -309,7 +309,7 @@ function PrincipalLecture() {
                 .catch(err => console.error('Error fetching feedbacks:', err));
 
             // Fetch ratings given by principal
-            fetch(`http://localhost:3001/get-ratings-by-user?username=${username}`)
+            fetch(`https://lwks-reporting.onrender.com/get-ratings-by-user?username=${username}`)
                 .then(res => res.json())
                 .then(data => {
                     const ratingsData = data.reduce((acc, rating) => {
