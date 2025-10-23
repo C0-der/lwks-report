@@ -12,7 +12,10 @@ const db = mysql2.createConnection({
     host: 'gateway01.us-east-1.prod.aws.tidbcloud.com',
     user:  '3bvEKxhmHL6Qnm8.root',
     password: '3gu3WxEKlXGCAPd2',
-    database: 'test'
+    database: 'test',
+    ssl: {
+        rejectUnauthorized: true
+    }
 });
 
 // Connect to database
