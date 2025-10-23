@@ -1550,6 +1550,44 @@ app.get('/get-student-attendance', (req, res) => {
     });
 });
 
+// Get all student classes
+app.get('/get-all-student-classes', (req, res) => {
+    const sql = `
+        SELECT sc.id, sc.username, sc.class_name, sc.class_code, sc.semester, sc.year,
+               s.firstname as student_firstname, s.lastname as student_lastname
+        FROM student_classes sc
+        JOIN students s ON sc.username = s.username
+        ORDER BY sc.class_name, s.lastname
+    `;
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error querying all student classes:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json(data);
+    });
+});
+
+// Get all lectures with course and lecturer details
+app.get('/get-all-lectures-with-courses', (req, res) => {
+    const sql = `
+        SELECT l.id, l.title, l.description, l.created_at,
+               c.name as course_name,
+               lec.firstname as lecturer_firstname, lec.lastname as lecturer_lastname
+        FROM lectures l
+        JOIN courses c ON l.course_id = c.id
+        JOIN lecturers lec ON l.lecturer_username = lec.username
+        ORDER BY l.created_at DESC
+    `;
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.error('Error querying all lectures with courses:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json(data);
+    });
+});
+
 // Send message endpoint
 app.post('/send-message', (req, res) => {
     const { name, email, message } = req.body;

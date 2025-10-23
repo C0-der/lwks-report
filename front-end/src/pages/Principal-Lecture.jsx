@@ -29,6 +29,8 @@ function PrincipalLecture() {
         feedbacksData: [],
         ratingsData: []
     });
+    const [studentClasses, setStudentClasses] = useState([]);
+    const [lectures, setLectures] = useState([]);
 
     const handleRatings = () => {
         setActiveSection('ratings');
@@ -163,6 +165,32 @@ function PrincipalLecture() {
     const handleCourses = () => {
         setActiveSection('courses');
         fetchCourses();
+    };
+
+    const fetchStudentClasses = () => {
+        fetch('http://localhost:3001/get-all-student-classes',)
+            .then(res => res.json())
+            .then(data => setStudentClasses(data))
+            .catch(err => {
+                console.error('Error fetching student classes:', err);
+                alert('Error fetching student classes: ' + err.message);
+            });
+    };
+
+    const fetchLectures = () => {
+        fetch('http://localhost:3001/get-all-lectures-with-courses')
+            .then(res => res.json())
+            .then(data => setLectures(data))
+            .catch(err => {
+                console.error('Error fetching lectures:', err);
+                alert('Error fetching lectures: ' + err.message);
+            });
+    };
+
+    const handleClasses = () => {
+        setActiveSection('classes');
+        fetchStudentClasses();
+        fetchLectures();
     };
 
     const fetchCourses = () => {
@@ -311,7 +339,7 @@ function PrincipalLecture() {
                         <button className="btn btn-outline-light" onClick={() => { setActiveSection('reports'); fetchReports(); }}>Review Reports</button>
                         <button className="btn btn-outline-light" onClick={handleMonitor}>Monitor</button>
                         <button className="btn btn-outline-light" onClick={handleRatings}>Ratings</button>
-                        <button className="btn btn-outline-light" onClick={() => setActiveSection('classes')}>Classes</button>
+                        <button className="btn btn-outline-light" onClick={handleClasses}>Classes</button>
                         <button className="btn btn-outline-light" onClick={() => navigate('/')}>Logout</button>
                     </div>
                 </div>
@@ -638,7 +666,62 @@ function PrincipalLecture() {
                     {activeSection === 'classes' && (
                         <div className="mt-4">
                             <h4>Classes</h4>
-                            <p>Classes management feature coming soon.</p>
+                            <div className="mb-4">
+                                <h5>Student Classes</h5>
+                                {studentClasses.length === 0 ? (
+                                    <p>No student classes found.</p>
+                                ) : (
+                                    <table className="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Student Username</th>
+                                                <th>Student Name</th>
+                                                <th>Class Name</th>
+                                                <th>Course Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {studentClasses.map(cls => (
+                                                <tr key={cls.id}>
+                                                    <td>{cls.student_username}</td>
+                                                    <td>{cls.student_firstname} {cls.student_lastname}</td>
+                                                    <td>{cls.class_name}</td>
+                                                    <td>{cls.course_name}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                )}
+                            </div>
+                            <div>
+                                <h5>Lectures</h5>
+                                {lectures.length === 0 ? (
+                                    <p>No lectures found.</p>
+                                ) : (
+                                    <table className="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Lecture Name</th>
+                                                <th>Course Name</th>
+                                                <th>Lecturer</th>
+                                                <th>Topic</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {lectures.map(lec => (
+                                                <tr key={lec.id}>
+                                                    <td>{lec.lectureName}</td>
+                                                    <td>{lec.courseName}</td>
+                                                    <td>{lec.lecturer_firstname} {lec.lecturer_lastname}</td>
+                                                    <td>{lec.topicTaught}</td>
+                                                    <td>{new Date(lec.created_at).toLocaleDateString()}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                )}
+                            </div>
                             <button className="btn btn-secondary mt-3" onClick={() => setActiveSection('')}>Close</button>
                         </div>
                     )}
