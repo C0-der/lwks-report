@@ -1,21 +1,24 @@
- const express = require('express');
- const mysql2 = require('mysql2');
- const cors = require('cors');
+const express = require('express');
+const mysql2 = require('mysql2');
+const cors = require('cors');
 
 const app = express();
 app.use(cors());
 app.use(express.json());// to parse json data
 
 // Create connection to database
-
 const db = mysql2.createConnection({
     host: 'gateway01.us-east-1.prod.aws.tidbcloud.com',
-    user:  '3bvEKxhmHL6Qnm8.root',
+    port: 4000, // Added port for TiDB Cloud
+    user: '3bvEKxhmHL6Qnm8.root',
     password: '3gu3WxEKlXGCAPd2',
     database: 'test',
     ssl: {
-        rejectUnauthorized: true
-    }
+        rejectUnauthorized: true,
+        minVersion: 'TLSv1.2'
+    },
+    connectTimeout: 60000,
+    charset: 'utf8mb4'
 });
 
 // Connect to database
@@ -25,6 +28,31 @@ db.connect((err) => {
         return;
     }
     console.log('Connected to database');
+});
+
+// Create login table
+db.query(`CREATE TABLE IF NOT EXISTS login (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(255) NOT NULL UNIQUE,
+    Firstname VARCHAR(255) NOT NULL,
+    Lastname VARCHAR(255) NOT NULL,
+    Password VARCHAR(255) NOT NULL,
+    Role VARCHAR(50) NOT NULL
+)`, (err) => {
+    if (err) console.error('Error creating login table:', err);
+    else console.log('Login table ready');
+});
+
+// Create users table
+db.query(`CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstname VARCHAR(255) NOT NULL,
+    lastname VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)`, (err) => {
+    if (err) console.error('Error creating users table:', err);
+    else console.log('Users table ready');
 });
 
 // Create students table
@@ -203,6 +231,7 @@ db.query(`CREATE TABLE IF NOT EXISTS student_classes (
 db.query("INSERT IGNORE INTO login (Username, Firstname, Lastname, Password, Role) VALUES ('pleader', 'Program', 'Leader', 'pass', 'program leader')", (err) => {
     if (err) console.error('Error inserting login:', err);
 });
+
 db.query("INSERT IGNORE INTO streams (id, name) VALUES (1, 'Computer Science')", (err) => {
     if (err) console.error('Error inserting stream:', err);
 });
@@ -286,6 +315,7 @@ db.query("INSERT IGNORE INTO streams (id, name) VALUES (20, 'Stream 20')", (err)
 db.query("INSERT IGNORE INTO streams (id, name) VALUES (21, 'Stream 21')", (err) => {
     if (err) console.error('Error inserting stream:', err);
 });
+
 db.query("INSERT IGNORE INTO courses (id, name, stream_id) VALUES (1, 'Data Structures', 1)", (err) => {
     if (err) console.error('Error inserting course:', err);
 });
@@ -449,24 +479,31 @@ db.query("INSERT IGNORE INTO courses (id, name, stream_id) VALUES (30, 'Associat
 db.query("INSERT IGNORE INTO courses (id, name, stream_id) VALUES (31, 'BA in Fashion and Retailing', 31)", (err) => {
     if (err) console.error('Error inserting course:', err);
 });
+
 db.query("INSERT IGNORE INTO program_leaders (username, firstname, lastname, stream_id) VALUES ('pleader', 'Program', 'Leader', 1)", (err) => {
     if (err) console.error('Error inserting program leader:', err);
 });
+
 db.query("INSERT IGNORE INTO lecturers (username, firstname, lastname) VALUES ('lecturer1', 'John', 'Doe')", (err) => {
     if (err) console.error('Error inserting lecturer:', err);
 });
+
 db.query("INSERT IGNORE INTO lectures (title, description, lecturer_username, course_id) VALUES ('Intro to DS', 'Basics of Data Structures', 'lecturer1', 1)", (err) => {
     if (err) console.error('Error inserting lecture:', err);
 });
+
 db.query("INSERT IGNORE INTO login (Username, Firstname, Lastname, Password, Role) VALUES ('student1', 'John', 'Student', 'pass', 'student')", (err) => {
     if (err) console.error('Error inserting sample student login:', err);
 });
+
 db.query("INSERT IGNORE INTO students (username, firstname, lastname) VALUES ('student1', 'John', 'Student')", (err) => {
     if (err) console.error('Error inserting sample student:', err);
 });
+
 db.query("INSERT IGNORE INTO student_classes (username, class_name, class_code, semester, year) VALUES ('student1', 'Data Structures', 'DS101', 'Fall', 2023)", (err) => {
     if (err) console.error('Error inserting sample class:', err);
 });
+
 db.query("INSERT IGNORE INTO student_classes (username, class_name, class_code, semester, year) VALUES ('student1', 'Computer Science Fundamentals', 'CSF101', 'Spring', 2023)", (err) => {
     if (err) console.error('Error inserting sample class:', err);
 });
@@ -1318,14 +1355,14 @@ app.get('/get-program-leader-classes', (req, res) => {
             WHERE c.stream_id = ?
             ORDER BY sc.class_name
         `;
-        db.query(sqlClasses, [streamId], (err, data) => {
-            if (err) {
-                console.error('Error querying classes:', err);
-                return res.status(500).json({ error: 'Database error' });
-            }
-            res.json(data);
-        });
+    db.query(sqlClasses, [streamId], (err, data) => {
+        if (err) {
+            console.error('Error querying classes:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json(data);
     });
+});
 })
 
 // Get reviewed reports (reports with feedback from principal)
