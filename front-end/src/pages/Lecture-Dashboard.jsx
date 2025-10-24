@@ -67,7 +67,7 @@ function LectureDashboard() {
     };
 
     useEffect(() => {
-        fetch('https://lwks-reporting.onrender.com')
+        fetch('https://lwks-reporting.onrender.com/get-courses')
             .then(res => res.json())
             .then(data => setCourses(data))
             .catch(err => console.error('Error fetching courses:', err));
@@ -124,7 +124,7 @@ function LectureDashboard() {
     }, [username]);
 
     const handleRateStudents = () => {
-        fetch('https://lwks-reporting.onrender.com')
+        fetch('https://lwks-reporting.onrender.com/get-students')
             .then(res => res.json())
             .then(data => {
                 setStudents(data);
@@ -141,7 +141,7 @@ function LectureDashboard() {
             alert('Please select a student.');
             return;
         }
-        fetch('https://lwks-reporting.onrender.com', {
+        fetch('https://lwks-reporting.onrender.com/submit-rating', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -232,7 +232,7 @@ function LectureDashboard() {
             alert('Please fill title and select course.');
             return;
         }
-        fetch('https://lwks-reporting.onrender.com', {
+        fetch('https://lwks-reporting.onrender.com/add-lcture', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -263,7 +263,7 @@ function LectureDashboard() {
 
     const handleDeleteLecture = (id) => {
         if (!confirm('Are you sure you want to delete this lecture?')) return;
-        fetch('https://lwks-reporting.onrender.com', {
+        fetch('https://lwks-reporting.onrender.com/delete-lecture', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id })

@@ -22,7 +22,7 @@ function Login() {
         const validationErrors = Validation(Values);
         setErrors(validationErrors);
         if (!Object.values(validationErrors).some(err => err !== "")) {
-            fetch('https://lwks-reporting.onrender.com', {
+            fetch('https://lwks-reporting.onrender.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

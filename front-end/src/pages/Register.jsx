@@ -13,7 +13,7 @@ function Register() {
     });
     const [courses, setCourses] = useState([]);
     useEffect(() => {
-        fetch('https://lwks-reporting.onrender.com/courses')
+        fetch('https://lwks-reporting.onrender.com/get-courses')
             .then(res => res.json())
             .then(data => setCourses(data))
             .catch(err => console.error('Error fetching courses:', err));
@@ -39,7 +39,7 @@ function Register() {
                 payload.semester = Values.semester || '';
                 payload.year = Values.year || '';
             }
-            fetch('https://lwks-reporting.onrender.com', {
+            fetch('https://lwks-reporting.onrender.com/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

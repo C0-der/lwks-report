@@ -22,7 +22,7 @@ function StudentDashboard() {
     const lastname = localStorage.getItem('lastname');
 
     useEffect(() => {
-        fetch('https://lwks-reporting.onrender.com')
+        fetch('https://lwks-reporting.onrender.com/get-courses')
             .then(res => res.json())
             .then(data => setCourses(data))
             .catch(err => console.error('Error fetching courses:', err));
@@ -51,7 +51,7 @@ function StudentDashboard() {
             alert('Username not found. Please log in again.');
             return;
         }
-        const url = `http://localhost:3001/get-classes?username=${username}`;
+        const url = `https://lwks-reporting.onrender.com/get-classes?username=${username}`;
         fetch(url)
             .then(res => {
                 if (!res.ok) {
@@ -74,7 +74,7 @@ function StudentDashboard() {
             alert('Username not found. Please log in again.');
             return;
         }
-        fetch(`http://localhost:3001/get-ratings?student_username=${username}`)
+        fetch(`https://lwks-reporting.onrender.com/get-ratings?student_username=${username}`)
             .then(res => {
                 if (!res.ok) {
                     throw new Error('Network response was not ok');
@@ -100,7 +100,7 @@ function StudentDashboard() {
             alert('Please fill all fields.');
             return;
         }
-        fetch('http://localhost:3001/register-course', {
+        fetch('https://lwks-reporting.onrender.com/register-course', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -121,17 +121,17 @@ function StudentDashboard() {
                 setSemester('');
                 setYear('');
                 // Refetch chart data after registration
-                fetch(`http://localhost:3001/get-student-attendance?student_username=${username}`)
+                fetch(`https://lwks-reporting.onrender.com/get-student-attendance?student_username=${username}`)
                     .then(res => res.json())
                     .then(data => setAttendanceData(data))
                     .catch(err => console.error('Error refetching attendance data:', err));
 
-                fetch(`http://localhost:3001/get-student-ratings-distribution?student_username=${username}`)
+                fetch(`https://lwks-reporting.onrender.com/get-student-ratings-distribution?student_username=${username}`)
                     .then(res => res.json())
                     .then(data => setRatingsData(data))
                     .catch(err => console.error('Error refetching ratings data:', err));
 
-                fetch(`http://localhost:3001/get-student-progress?student_username=${username}`)
+                fetch(`https://lwks-reporting.onrender.com/get-student-progress?student_username=${username}`)
                     .then(res => res.json())
                     .then(data => setProgressData(data))
                     .catch(err => console.error('Error refetching progress data:', err));

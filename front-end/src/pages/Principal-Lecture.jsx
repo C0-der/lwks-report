@@ -40,7 +40,7 @@ function PrincipalLecture() {
 
     const deleteFeedback = (feedbackId) => {
         if (!confirm('Delete this feedback?')) return;
-        fetch('https://lwks-reporting.onrender.com', {
+        fetch('https://lwks-reporting.onrender.com/delete-feedback', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: feedbackId })
@@ -63,7 +63,7 @@ function PrincipalLecture() {
 
     const fetchStudentRatings = () => {
         // Fetch ratings where ratee_role = 'student'
-        fetch('https://lwks-reporting.onrender.com')
+        fetch('https://lwks-reporting.onrender.com/get-all-ratings')
             .then(res => {
                 if (!res.ok) {
                     throw new Error('Network response was not ok');
@@ -93,7 +93,7 @@ function PrincipalLecture() {
 
     const handleRateLecturers = () => {
         setViewMode('rate');
-        fetch('https://lwks-reporting.onrender.com')
+        fetch('https://lwks-reporting.onrender.com/get-lecturers')
             .then(res => res.json())
             .then(data => setLecturers(data))
             .catch(err => {
@@ -107,7 +107,7 @@ function PrincipalLecture() {
             alert('Please select a lecturer.');
             return;
         }
-        fetch('https://lwks-reporting.onrender.com', {
+        fetch('https://lwks-reporting.onrender.com/submit-rating', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -143,7 +143,7 @@ function PrincipalLecture() {
     };
 
     const fetchMonitorCourses = () => {
-        fetch('https://lwks-reporting.onrender.com')
+        fetch('https://lwks-reporting.onrender.com/get-all-courses-with-lectures')
             .then(res => res.json())
             .then(data => setMonitorCourses(data))
             .catch(err => {
@@ -153,7 +153,7 @@ function PrincipalLecture() {
     };
 
     const fetchMonitorLecturers = () => {
-        fetch('https://lwks-reporting.onrender.com')
+        fetch('https://lwks-reporting.onrender.com/get-lecturers')
             .then(res => res.json())
             .then(data => setMonitorLecturers(data))
             .catch(err => {
@@ -168,7 +168,7 @@ function PrincipalLecture() {
     };
 
     const fetchStudentClasses = () => {
-        fetch('https://lwks-reporting.onrender.com',)
+        fetch('https://lwks-reporting.onrender.com/get-all-student-classes',)
             .then(res => res.json())
             .then(data => setStudentClasses(data))
             .catch(err => {
@@ -178,7 +178,7 @@ function PrincipalLecture() {
     };
 
     const fetchLectures = () => {
-        fetch('https://lwks-reporting.onrender.com')
+        fetch('https://lwks-reporting.onrender.com/get-all-lectures-with-courses')
             .then(res => res.json())
             .then(data => setLectures(data))
             .catch(err => {
@@ -194,7 +194,7 @@ function PrincipalLecture() {
     };
 
     const fetchCourses = () => {
-        fetch('https://lwks-reporting.onrender.com')
+        fetch('https://lwks-reporting.onrender.com/get-courses')
             .then(res => res.json())
             .then(data => setCourses(data))
             .catch(err => {
@@ -205,7 +205,7 @@ function PrincipalLecture() {
 
     const handleDeleteCourse = (courseId) => {
         if (!confirm('Are you sure you want to delete this course? This action cannot be undone.')) return;
-        fetch('https://lwks-reporting.onrender.com', {
+        fetch('https://lwks-reporting.onrender.com/delete-course', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: courseId })
@@ -227,7 +227,7 @@ function PrincipalLecture() {
 
     const fetchReports = () => {
         // Optionally filter by lecturer if needed, for now get all reports
-        fetch('https://lwks-reporting.onrender.com')
+        fetch('https://lwks-reporting.onrender.com/get-lecture-reports')
             .then(res => res.json())
             .then(data => {
                 setReports(data);
@@ -252,7 +252,7 @@ function PrincipalLecture() {
             from_role: 'principal',
             feedback_text: text
         };
-        fetch('https://lwks-reporting.onrender.com', {
+        fetch('https://lwks-reporting.onrender.com/submit-feedback', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -285,7 +285,7 @@ function PrincipalLecture() {
     useEffect(() => {
         if (username) {
             // Fetch reports filed by lecturers
-            fetch('https://lwks-reporting.onrender.com')
+            fetch('https://lwks-reporting.onrender.com/get-lecture-reports')
                 .then(res => res.json())
                 .then(data => {
                     const reportsData = data.map(report => ({

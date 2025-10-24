@@ -21,7 +21,7 @@ function LectureReportingForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch('https://lwks-reporting.onrender.com', {
+        fetch('https://lwks-reporting.onrender.com/submit-report', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
